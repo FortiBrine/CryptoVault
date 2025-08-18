@@ -1,0 +1,13 @@
+database:
+  type: "sqlite"
+  path: "plugins/CryptoVault/crypto.db"
+
+coins:
+  # Bitcoin, Ethereum, Tether
+  units:
+    BTCUSDT: "btc."
+    ETHUSDT: "eth."
+    USDCUSDT: "usdt."
+
+  # In seconds (10 minutes)
+  update-time: 600

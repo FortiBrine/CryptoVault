@@ -3,3 +3,6 @@ main: me.fortibrine.cryptovault.CryptoVaultPlugin
 version: ${version}
 
 api-version: '1.13'
+author: FortiBrine
+
+depend: [Vault, PlaceholderAPI]

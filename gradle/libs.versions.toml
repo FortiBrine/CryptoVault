@@ -1,0 +1,17 @@
+[versions]
+shadow = "9.0.2"
+paper = "1.21.7-R0.1-SNAPSHOT"
+lombok = "1.18.34"
+sqlite = "3.50.3.0"
+ormlite = "6.1"
+litecommands = "3.10.2"
+
+[libraries]
+paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
+ormlite = { module = "com.j256.ormlite:ormlite-jdbc", version.ref = "ormlite" }
+litecommands = { module = "dev.rollczi:litecommands-bukkit", version.ref = "litecommands" }
+
+[plugins]
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

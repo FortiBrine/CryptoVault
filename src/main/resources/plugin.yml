@@ -1,0 +1,5 @@
+name: CryptoVault
+main: me.fortibrine.cryptovault.CryptoVaultPlugin
+version: ${version}
+
+api-version: '1.13'

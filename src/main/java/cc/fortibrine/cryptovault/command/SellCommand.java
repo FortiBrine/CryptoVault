@@ -1,6 +1,7 @@
 package cc.fortibrine.cryptovault.command;
 
 import dev.rollczi.litecommands.annotations.argument.Arg;
+import dev.rollczi.litecommands.annotations.async.Async;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
@@ -19,8 +20,9 @@ public class SellCommand {
     private final CryptoDatabase cryptoDatabase = plugin.getCryptoDatabase();
     private final CoinManager coinManager = plugin.getCoinManager();
 
+    @Async
     @Execute(name = "sell")
-    public void execute(@Context Player player, @Arg(CoinArgument.KEY) String coin, @Arg double amount) {
+    public void execute(@Context Player player, @Async @Arg(CoinArgument.KEY) String coin, @Arg double amount) {
         double cost = coinManager.getCoinPrice(coin) * amount;
 
         if (!cryptoDatabase.withdraw(player.getUniqueId(), coin, amount)) {

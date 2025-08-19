@@ -1,9 +1,8 @@
-package me.fortibrine.cryptovault.coin;
+package cc.fortibrine.cryptovault.coin;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import lombok.Getter;
-import me.fortibrine.cryptovault.CryptoVaultPlugin;
+import cc.fortibrine.cryptovault.CryptoVaultPlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,11 +13,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
-@Getter
 public class CoinManager {
     private final CryptoVaultPlugin plugin = CryptoVaultPlugin.getInstance();
     private final Map<String, Component> coinNames = new HashMap<>();
@@ -77,6 +74,14 @@ public class CoinManager {
                 plugin.getLogger().log(Level.SEVERE, "Error fetching price for " + symbol, e);
             }
         }
+    }
+
+    public double getCoinPrice(String coin) {
+        return coinCosts.get(coin);
+    }
+
+    public Set<String> getCoinNames() {
+        return new HashSet<>(coinNames.keySet());
     }
 
 }

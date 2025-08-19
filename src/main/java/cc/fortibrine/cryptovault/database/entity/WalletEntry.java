@@ -1,4 +1,4 @@
-package me.fortibrine.cryptovault.database.entity;
+package cc.fortibrine.cryptovault.database.entity;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;

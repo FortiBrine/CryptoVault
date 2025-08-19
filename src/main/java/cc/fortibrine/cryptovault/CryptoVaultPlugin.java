@@ -1,13 +1,19 @@
-package me.fortibrine.cryptovault;
+package cc.fortibrine.cryptovault;
 
+import com.j256.ormlite.logger.Level;
+import com.j256.ormlite.logger.Logger;
 import dev.rollczi.litecommands.LiteCommands;
+import dev.rollczi.litecommands.argument.ArgumentKey;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import lombok.Getter;
-import me.fortibrine.cryptovault.coin.CoinManager;
-import me.fortibrine.cryptovault.command.BuyCommand;
-import me.fortibrine.cryptovault.command.SellCommand;
-import me.fortibrine.cryptovault.database.CryptoDatabase;
-import me.fortibrine.cryptovault.database.SqliteCryptoDatabase;
+import cc.fortibrine.cryptovault.coin.CoinManager;
+import cc.fortibrine.cryptovault.command.BuyCommand;
+import cc.fortibrine.cryptovault.command.SellCommand;
+import cc.fortibrine.cryptovault.command.argument.CoinArgument;
+import cc.fortibrine.cryptovault.config.MessageManager;
+import cc.fortibrine.cryptovault.database.CryptoDatabase;
+import cc.fortibrine.cryptovault.database.SqliteCryptoDatabase;
+import cc.fortibrine.cryptovault.economy.EconomyManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,11 +28,17 @@ public class CryptoVaultPlugin extends JavaPlugin {
     private LiteCommands<CommandSender> liteCommands;
     private CryptoDatabase cryptoDatabase;
     private CoinManager coinManager;
+    private EconomyManager economyManager;
+    private MessageManager messageManager;
 
     @Override
     public void onLoad() {
         instance = this;
+
+        Logger.setGlobalLogLevel(Level.OFF);
+
         saveDefaultConfig();
+        messageManager = new MessageManager();
 
         try {
             cryptoDatabase = new SqliteCryptoDatabase(getConfig().getString("database.path"));
@@ -35,16 +47,19 @@ public class CryptoVaultPlugin extends JavaPlugin {
         }
 
         coinManager = new CoinManager();
+        economyManager = new EconomyManager();
     }
 
     @Override
     public void onEnable() {
         coinManager.startPriceUpdateTask();
+        economyManager.setupEconomy();
         liteCommands = LiteBukkitFactory.builder(getPluginMeta().getName().toLowerCase(), this)
                 .commands(
                         new BuyCommand(),
                         new SellCommand()
                 )
+                .argument(String.class, ArgumentKey.of(CoinArgument.KEY), new CoinArgument())
                 .build();
 
     }
@@ -55,6 +70,8 @@ public class CryptoVaultPlugin extends JavaPlugin {
 
         cryptoDatabase = null;
         coinManager = null;
+        messageManager = null;
+        economyManager = null;
 
         if (liteCommands != null) {
             liteCommands.unregister();

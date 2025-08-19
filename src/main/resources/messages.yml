@@ -1,0 +1,31 @@
+usage:
+  all:
+    - "<green>Usage: /cryptovault <subcommand> [arguments]"
+    - "<gray>Subcommands:"
+    - "<gray>  buy <coin_type> <amount> - Buy cryptocurrency"
+    - "<gray>  sell <coin_type> <amount> - Sell cryptocurrency"
+    - "<gray>  reload - Reloads the plugin configuration"
+  buy:
+    - "<green>Usage: /cryptovault buy <coin_type> <amount>"
+    - "<gray>Example: /cryptovault buy BTCUSDT 0.5"
+  sell:
+    - "<green>Usage: /cryptovault sell <coin_type> <amount>"
+    - "<gray>Example: /cryptovault sell BTCUSDT 0.5"
+
+success:
+  buy:
+    - "<green>Success: You have successfully purchased cryptocurrency!"
+    - "<gray>Check your balance for details."
+  sell:
+    - "<green>Success: You have successfully sold cryptocurrency!"
+    - "<gray>Check your balance for details."
+
+error:
+  insufficient_currency:
+    - "<red>Error: You do not have enough currency to complete this purchase!"
+    - "<gray>Check your balance and try again."
+  insufficient_crypto:
+    - "<red>Error: You do not have enough coins to sell!"
+  invalid_coin_type:
+    - "<red>Error: Invalid coin type!"
+    - "<gray>Available coins: BTCUSDT, ETHUSDT, etc."

@@ -1,4 +1,4 @@
-package me.fortibrine.cryptovault.dialog;
+package cc.fortibrine.cryptovault.dialog;
 
 import io.papermc.paper.dialog.Dialog;
 import io.papermc.paper.registry.data.dialog.ActionButton;
@@ -7,7 +7,7 @@ import io.papermc.paper.registry.data.dialog.action.DialogAction;
 import io.papermc.paper.registry.data.dialog.input.DialogInput;
 import io.papermc.paper.registry.data.dialog.input.SingleOptionDialogInput;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
-import me.fortibrine.cryptovault.CryptoVaultPlugin;
+import cc.fortibrine.cryptovault.CryptoVaultPlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
 import net.kyori.adventure.text.format.TextColor;

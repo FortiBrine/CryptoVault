@@ -5,6 +5,8 @@ lombok = "1.18.34"
 sqlite = "3.50.3.0"
 ormlite = "6.1"
 litecommands = "3.10.2"
+vault-api = "1.7"
+placeholderapi = "2.11.6"
 
 [libraries]
 paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
@@ -12,6 +14,8 @@ lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 sqlite = { module = "org.xerial:sqlite-jdbc", version.ref = "sqlite" }
 ormlite = { module = "com.j256.ormlite:ormlite-jdbc", version.ref = "ormlite" }
 litecommands = { module = "dev.rollczi:litecommands-bukkit", version.ref = "litecommands" }
+vault-api = { module = "com.github.MilkBowl:VaultAPI", version.ref = "vault-api" }
+placeholderapi = { module = "me.clip:placeholderapi", version.ref = "placeholderapi" }
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

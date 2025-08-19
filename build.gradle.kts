@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-group = "me.fortibrine"
+group = "cc.fortibrine"
 version = "1.0"
 
 repositories {
@@ -13,6 +13,7 @@ repositories {
     maven("https://jitpack.io")
     maven("https://repo.papermc.io/repository/maven-public/")
     maven("https://repo.panda-lang.org/releases")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
 }
 
 dependencies {
@@ -21,9 +22,13 @@ dependencies {
     }
     compileOnly(libs.sqlite)
     compileOnly(libs.lombok)
+    compileOnly(libs.vault.api) {
+        exclude("org.bukkit", "bukkit")
+    }
+    compileOnly(libs.placeholderapi)
     annotationProcessor(libs.lombok)
 
-    implementation(libs.ormlite)
+    compileOnly(libs.ormlite)
     implementation(libs.litecommands)
 }
 
@@ -38,7 +43,8 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
 
-        relocate("com.j256.ormlite", "me.fortibrine.cryptovault.shade.ormlite")
+        minimize()
+//        relocate("com.j256.ormlite", "me.fortibrine.cryptovault.shade.ormlite")
     }
 
     processResources {

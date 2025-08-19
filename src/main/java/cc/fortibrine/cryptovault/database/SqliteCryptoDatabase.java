@@ -1,4 +1,4 @@
-package me.fortibrine.cryptovault.database;
+package cc.fortibrine.cryptovault.database;
 
 import com.j256.ormlite.jdbc.JdbcPooledConnectionSource;
 

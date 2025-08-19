@@ -1,10 +1,10 @@
-package me.fortibrine.cryptovault.database;
+package cc.fortibrine.cryptovault.database;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import me.fortibrine.cryptovault.database.entity.WalletEntry;
+import cc.fortibrine.cryptovault.database.entity.WalletEntry;
 
 import java.sql.SQLException;
 import java.util.Optional;

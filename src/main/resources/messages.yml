@@ -27,7 +27,7 @@ success:
     - "<gray>Check your balance for details."
   balance:
     - "<green>Your balance:"
-    - "<gray>Crypto: <crypto_balance> | Currency: <currency_balance>"
+    - "<gray>Crypto: <crypto_balance> <coin> | Currency: <currency_balance>"
 
 error:
   insufficient_currency:

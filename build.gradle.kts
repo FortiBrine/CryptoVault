@@ -43,7 +43,7 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
 
-        minimize()
+        relocate("dev.rollczi.litecommands", "cc.fortibrine.cryptovault.shade.litecommands")
 //        relocate("com.j256.ormlite", "me.fortibrine.cryptovault.shade.ormlite")
     }
 

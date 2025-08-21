@@ -1,3 +1,9 @@
+# CryptoVault Plugin
+# Author: FortiBrine
+# Version: ${version}
+# GitHub: https://github.com/FortiBrine
+# Enjoy using the plugin!
+
 database:
   type: "sqlite"
   path: "plugins/CryptoVault/crypto.db"

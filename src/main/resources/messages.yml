@@ -1,3 +1,9 @@
+# CryptoVault Plugin
+# Author: FortiBrine
+# Version: ${version}
+# GitHub: https://github.com/FortiBrine
+# Enjoy using the plugin!
+
 usage:
   all:
     - "<green>Usage: /cryptovault <subcommand> [arguments]"
@@ -19,6 +25,9 @@ success:
   sell:
     - "<green>Success: You have successfully sold cryptocurrency!"
     - "<gray>Check your balance for details."
+  balance:
+    - "<green>Your balance:"
+    - "<gray>Crypto: <crypto_balance> | Currency: <currency_balance>"
 
 error:
   insufficient_currency:
@@ -29,3 +38,6 @@ error:
   invalid_coin_type:
     - "<red>Error: Invalid coin type!"
     - "<gray>Available coins: BTCUSDT, ETHUSDT, etc."
+  insufficient_permissions:
+    - "<red>Error: You do not have sufficient permissions (<permissions>) to perform this action!"
+    - "<gray>Contact an administrator for assistance."

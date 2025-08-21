@@ -19,7 +19,7 @@ public class CoinArgument extends ArgumentResolver<CommandSender, String> {
 
     @Override
     protected ParseResult<String> parse(Invocation<CommandSender> invocation, Argument<String> context, String argument) {
-        if (coinManager.getCoinNames().contains(argument)) {
+        if (!coinManager.getCoinNames().contains(argument)) {
             return ParseResult.failure("Coin " + argument + " not exists");
         }
 

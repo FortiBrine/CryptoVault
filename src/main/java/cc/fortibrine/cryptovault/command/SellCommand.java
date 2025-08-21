@@ -12,6 +12,7 @@ import cc.fortibrine.cryptovault.database.CryptoDatabase;
 import cc.fortibrine.cryptovault.economy.EconomyManager;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 @Command(name = "cryptovault", aliases = {"cv"})
 public class SellCommand {
@@ -21,7 +22,6 @@ public class SellCommand {
     private final CryptoDatabase cryptoDatabase = plugin.getCryptoDatabase();
     private final CoinManager coinManager = plugin.getCoinManager();
 
-    @Async
     @Execute(name = "sell")
     @Permission("cryptovault.sell")
     public void execute(@Context Player player, @Async @Arg(CoinArgument.KEY) String coin, @Arg double amount) {
@@ -38,8 +38,13 @@ public class SellCommand {
             return;
         }
 
-        economyManager.deposit(player, cost);
-        plugin.getMessageManager().sendMessages("success.sell", player);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                economyManager.deposit(player, cost);
+                plugin.getMessageManager().sendMessages("success.sell", player);
+            }
+        }.runTaskAsynchronously(plugin);
 
     }
 

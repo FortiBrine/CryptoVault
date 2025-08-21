@@ -52,5 +52,11 @@ tasks {
         filesMatching("plugin.yml") {
             expand("version" to project.version)
         }
+        filesMatching("config.yml") {
+            expand("version" to project.version)
+        }
+        filesMatching("messages.yml") {
+            expand("version" to project.version)
+        }
     }
 }

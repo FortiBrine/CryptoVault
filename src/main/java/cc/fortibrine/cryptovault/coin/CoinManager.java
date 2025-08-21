@@ -80,6 +80,10 @@ public class CoinManager {
         return coinCosts.get(coin);
     }
 
+    public Component getCoinName(String coin) {
+        return coinNames.get(coin);
+    }
+
     public Set<String> getCoinNames() {
         return new HashSet<>(coinNames.keySet());
     }

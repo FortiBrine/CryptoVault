@@ -27,9 +27,16 @@ public class BalanceCommand {
         double amountCoins = cryptoDatabase.getBalance(player.getUniqueId(), coin);
         double balance = amountCoins * coinManager.getCoinPrice(coin);
 
-        plugin.getMessageManager().sendMessages("success.balance", player,
-                Placeholder.unparsed("crypto_balance", String.valueOf(amountCoins)),
-                Placeholder.unparsed("currency_balance", String.valueOf(balance)));
+        String formattedAmountCoins = String.format("%.8f", amountCoins);
+        String formattedBalance = String.format("%.2f", balance);
+
+        plugin.getMessageManager().sendMessages(
+                "success.balance",
+                player,
+                Placeholder.unparsed("crypto_balance", formattedAmountCoins),
+                Placeholder.unparsed("currency_balance", formattedBalance),
+                Placeholder.component("coin", coinManager.getCoinName(coin))
+        );
     }
 
 }

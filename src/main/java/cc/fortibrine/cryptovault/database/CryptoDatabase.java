@@ -12,37 +12,28 @@ import java.util.UUID;
 
 public abstract class CryptoDatabase {
 
-    private final Dao<WalletEntry, ?> walletDao;
+    private final Dao<WalletEntry, String> walletDao;
 
     public CryptoDatabase(ConnectionSource connectionSource) throws SQLException {
         TableUtils.createTableIfNotExists(connectionSource, WalletEntry.class);
         walletDao = DaoManager.createDao(connectionSource, WalletEntry.class);
     }
 
-    public void deposit(UUID uniqueId, String coin, double amount) {
+    public void deposit(UUID playerId, String coin, double amount) {
         try {
             if (amount <= 0) {
                 throw new IllegalArgumentException("Deposit amount must be positive");
             }
 
-            Optional<WalletEntry> existingEntry = Optional.ofNullable(walletDao.queryForFirst(
-                    walletDao.queryBuilder()
-                            .where()
-                            .eq("id", uniqueId)
-                            .and()
-                            .eq("coin", coin)
-                            .prepare()
-            ));
+            String compositeId = playerId.toString() + "_" + coin;
+            Optional<WalletEntry> existingEntry = Optional.ofNullable(walletDao.queryForId(compositeId));
 
             if (existingEntry.isPresent()) {
                 WalletEntry entry = existingEntry.get();
                 entry.setAmount(entry.getAmount() + amount);
                 walletDao.update(entry);
             } else {
-                WalletEntry newEntry = new WalletEntry();
-                newEntry.setId(uniqueId);
-                newEntry.setCoin(coin);
-                newEntry.setAmount(amount);
+                WalletEntry newEntry = new WalletEntry(playerId, coin, amount);
                 walletDao.create(newEntry);
             }
         } catch (SQLException e) {
@@ -50,20 +41,14 @@ public abstract class CryptoDatabase {
         }
     }
 
-    public boolean withdraw(UUID uniqueId, String coin, double amount) {
+    public boolean withdraw(UUID playerId, String coin, double amount) {
         try {
             if (amount <= 0) {
                 throw new IllegalArgumentException("Withdrawal amount must be positive");
             }
 
-            Optional<WalletEntry> existingEntry = Optional.ofNullable(walletDao.queryForFirst(
-                    walletDao.queryBuilder()
-                            .where()
-                            .eq("id", uniqueId)
-                            .and()
-                            .eq("coin", coin)
-                            .prepare()
-            ));
+            String compositeId = playerId.toString() + "_" + coin;
+            Optional<WalletEntry> existingEntry = Optional.ofNullable(walletDao.queryForId(compositeId));
 
             if (existingEntry.isPresent()) {
                 WalletEntry entry = existingEntry.get();
@@ -82,17 +67,10 @@ public abstract class CryptoDatabase {
         }
     }
 
-    public double getBalance(UUID uniqueId, String coin) {
+    public double getBalance(UUID playerId, String coin) {
         try {
-            Optional<WalletEntry> existingEntry = Optional.ofNullable(walletDao.queryForFirst(
-                    walletDao.queryBuilder()
-                            .where()
-                            .eq("id", uniqueId)
-                            .and()
-                            .eq("coin", coin)
-                            .prepare()
-            ));
-
+            String compositeId = playerId.toString() + "_" + coin;
+            Optional<WalletEntry> existingEntry = Optional.ofNullable(walletDao.queryForId(compositeId));
             return existingEntry.map(WalletEntry::getAmount).orElse(0.0);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to get balance", e);

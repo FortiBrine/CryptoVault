@@ -1,13 +1,13 @@
 package cc.fortibrine.cryptovault;
 
 import cc.fortibrine.cryptovault.command.BalanceCommand;
+import cc.fortibrine.cryptovault.command.error.InvalidUsageHandlerImpl;
 import cc.fortibrine.cryptovault.command.error.PermissionHandler;
 import com.j256.ormlite.logger.Level;
 import com.j256.ormlite.logger.Logger;
 import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.argument.ArgumentKey;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
-import dev.rollczi.litecommands.message.LiteMessages;
 import lombok.Getter;
 import cc.fortibrine.cryptovault.coin.CoinManager;
 import cc.fortibrine.cryptovault.command.BuyCommand;
@@ -55,14 +55,17 @@ public class CryptoVaultPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        coinManager.reloadNames();
         coinManager.startPriceUpdateTask();
         economyManager.setupEconomy();
+
         liteCommands = LiteBukkitFactory.builder(getPluginMeta().getName().toLowerCase(), this)
                 .commands(
                         new BuyCommand(),
                         new SellCommand(),
                         new BalanceCommand()
                 )
+                .invalidUsage(new InvalidUsageHandlerImpl())
                 .missingPermission(new PermissionHandler())
                 .argument(String.class, ArgumentKey.of(CoinArgument.KEY), new CoinArgument())
                 .build();

@@ -11,3 +11,17 @@ website: "https://github.com/FortiBrine/CryptoVault"
 
 libraries:
   - "com.j256.ormlite:ormlite-jdbc:6.1"
+
+permissions:
+  cryptovault.prices:
+    description: Allows access to the /cryptovault prices command to view cryptocurrency prices
+    default: true
+  cryptovault.sell:
+    description: Allows access to the /cryptovault sell command to sell cryptocurrencies
+    default: true
+  cryptovault.buy:
+    description: Allows access to the /cryptovault buy command to buy cryptocurrencies
+    default: true
+  cryptovault.balance:
+    description: Allows access to the /cryptovault balance command to check cryptocurrency balance
+    default: true

@@ -7,5 +7,7 @@ author: FortiBrine
 
 depend: [Vault, PlaceholderAPI]
 
+website: "https://github.com/FortiBrine/CryptoVault"
+
 libraries:
   - "com.j256.ormlite:ormlite-jdbc:6.1"

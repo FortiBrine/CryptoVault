@@ -88,4 +88,8 @@ public class CoinManager {
         return new HashSet<>(coinNames.keySet());
     }
 
+    public Map<String, Double> getCoinCosts() {
+        return new HashMap<>(coinCosts);
+    }
+
 }

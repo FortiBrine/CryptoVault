@@ -1,6 +1,7 @@
 package cc.fortibrine.cryptovault;
 
 import cc.fortibrine.cryptovault.command.BalanceCommand;
+import cc.fortibrine.cryptovault.command.PricesCommand;
 import cc.fortibrine.cryptovault.command.error.InvalidUsageHandlerImpl;
 import cc.fortibrine.cryptovault.command.error.PermissionHandler;
 import com.j256.ormlite.logger.Level;
@@ -63,7 +64,8 @@ public class CryptoVaultPlugin extends JavaPlugin {
                 .commands(
                         new BuyCommand(),
                         new SellCommand(),
-                        new BalanceCommand()
+                        new BalanceCommand(),
+                        new PricesCommand()
                 )
                 .invalidUsage(new InvalidUsageHandlerImpl())
                 .missingPermission(new PermissionHandler())

@@ -1,13 +1,13 @@
 package cc.fortibrine.cryptovault.config;
 
 import cc.fortibrine.cryptovault.CryptoVaultPlugin;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -43,6 +43,24 @@ public class MessageManager {
                         ))
                 .forEach(sender::sendMessage);
 
+    }
+
+    public Component getComponent(String path, CommandSender sender, TagResolver... resolvers) {
+        if (!config.contains(path)) return null;
+        if (!config.isString(path)) return null;
+
+        String message = config.getString(path);
+
+        return MiniMessage.miniMessage().deserialize(message,
+                TagResolver.builder()
+                        .resolver(Placeholder.unparsed("player", sender.getName()))
+                        .resolvers(resolvers)
+                        .build()
+        );
+    }
+
+    public int getInt(String path) {
+        return config.getInt(path);
     }
 
     public void reload() {

@@ -41,3 +41,13 @@ error:
   insufficient_permissions:
     - "<red>Error: You do not have sufficient permissions (<permissions>) to perform this action!"
     - "<gray>Contact an administrator for assistance."
+
+dialog:
+  prices:
+    title: "Prices"
+    header:
+      component: "Your balance: <balance>"
+      width: 512
+    content:
+      component: "\$<price> cost 1 <unit>"
+      width: 512

@@ -1,5 +1,6 @@
 package cc.fortibrine.cryptovault.command.argument;
 
+import cc.fortibrine.cryptovault.config.MessageManager;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
@@ -8,6 +9,7 @@ import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
 import cc.fortibrine.cryptovault.CryptoVaultPlugin;
 import cc.fortibrine.cryptovault.coin.CoinManager;
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.CommandSender;
 
 public class CoinArgument extends ArgumentResolver<CommandSender, String> {
@@ -16,11 +18,13 @@ public class CoinArgument extends ArgumentResolver<CommandSender, String> {
 
     private final CryptoVaultPlugin plugin = CryptoVaultPlugin.getInstance();
     private final CoinManager coinManager = plugin.getCoinManager();
+    private final MessageManager messageManager = plugin.getMessageManager();
 
     @Override
     protected ParseResult<String> parse(Invocation<CommandSender> invocation, Argument<String> context, String argument) {
         if (!coinManager.getCoinNames().contains(argument)) {
-            return ParseResult.failure("Coin " + argument + " not exists");
+            return ParseResult.failure(messageManager.getComponent("error.invalid_coin_type", invocation.sender(),
+                    Placeholder.unparsed("coin", argument)));
         }
 
         return ParseResult.success(argument);

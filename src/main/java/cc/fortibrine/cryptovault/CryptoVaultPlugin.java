@@ -4,6 +4,7 @@ import cc.fortibrine.cryptovault.command.BalanceCommand;
 import cc.fortibrine.cryptovault.command.PricesCommand;
 import cc.fortibrine.cryptovault.command.error.InvalidUsageHandlerImpl;
 import cc.fortibrine.cryptovault.command.error.PermissionHandler;
+import cc.fortibrine.cryptovault.placeholder.CryptoVaultPlaceholder;
 import com.j256.ormlite.logger.Level;
 import com.j256.ormlite.logger.Logger;
 import dev.rollczi.litecommands.LiteCommands;
@@ -71,6 +72,10 @@ public class CryptoVaultPlugin extends JavaPlugin {
                 .missingPermission(new PermissionHandler())
                 .argument(String.class, ArgumentKey.of(CoinArgument.KEY), new CoinArgument())
                 .build();
+
+        if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            new CryptoVaultPlaceholder().register();
+        }
 
     }
 

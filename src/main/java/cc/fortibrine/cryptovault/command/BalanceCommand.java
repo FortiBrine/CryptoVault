@@ -4,6 +4,7 @@ import cc.fortibrine.cryptovault.CryptoVaultPlugin;
 import cc.fortibrine.cryptovault.coin.CoinManager;
 import cc.fortibrine.cryptovault.command.argument.CoinArgument;
 import cc.fortibrine.cryptovault.database.CryptoDatabase;
+import cc.fortibrine.cryptovault.util.BalanceFormatter;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.async.Async;
 import dev.rollczi.litecommands.annotations.command.Command;
@@ -27,14 +28,11 @@ public class BalanceCommand {
         double amountCoins = cryptoDatabase.getBalance(player.getUniqueId(), coin);
         double balance = amountCoins * coinManager.getCoinPrice(coin);
 
-        String formattedAmountCoins = String.format("%.8f", amountCoins);
-        String formattedBalance = String.format("%.2f", balance);
-
         plugin.getMessageManager().sendMessages(
                 "success.balance",
                 player,
-                Placeholder.unparsed("crypto_balance", formattedAmountCoins),
-                Placeholder.unparsed("currency_balance", formattedBalance),
+                Placeholder.unparsed("crypto_balance", BalanceFormatter.format(amountCoins)),
+                Placeholder.unparsed("currency_balance", BalanceFormatter.format(balance)),
                 Placeholder.component("coin", coinManager.getCoinName(coin))
         );
     }

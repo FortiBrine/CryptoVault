@@ -1,6 +1,6 @@
 package cc.fortibrine.cryptovault.command.argument;
 
-import cc.fortibrine.cryptovault.config.MessageManager;
+import cc.fortibrine.cryptovault.util.MiniMessageDeserializer;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
 import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
@@ -18,13 +18,15 @@ public class CoinArgument extends ArgumentResolver<CommandSender, String> {
 
     private final CryptoVaultPlugin plugin = CryptoVaultPlugin.getInstance();
     private final CoinManager coinManager = plugin.getCoinManager();
-    private final MessageManager messageManager = plugin.getMessageManager();
 
     @Override
     protected ParseResult<String> parse(Invocation<CommandSender> invocation, Argument<String> context, String argument) {
         if (!coinManager.getCoinNames().contains(argument)) {
-            return ParseResult.failure(messageManager.getComponent("error.invalid_coin_type", invocation.sender(),
-                    Placeholder.unparsed("coin", argument)));
+            return ParseResult.failure(MiniMessageDeserializer.deserializePlayer(
+                    plugin.getConfigManager().getMessageConfig().error.invalidCoinType,
+                    invocation.sender(),
+                    Placeholder.unparsed("coin", argument)
+            ));
         }
 
         return ParseResult.success(argument);

@@ -2,14 +2,18 @@ package cc.fortibrine.cryptovault.util;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Locale;
 
 public class BalanceFormatter {
 
     public static String format(double balance) {
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.ENGLISH);
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
         symbols.setGroupingSeparator('.');
-        DecimalFormat format = new DecimalFormat("#.##", symbols);
+
+        DecimalFormat format = new DecimalFormat("#,##0.########", symbols);
+        format.setGroupingUsed(true);
+        format.setGroupingSize(3);
+
         return format.format(balance);
     }
 

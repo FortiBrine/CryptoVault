@@ -5,8 +5,6 @@ import com.google.gson.JsonParser;
 import cc.fortibrine.cryptovault.CryptoVaultPlugin;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.net.URI;
@@ -26,23 +24,15 @@ public class CoinManager {
     }
 
     public void reloadNames() {
-        FileConfiguration config = plugin.getConfig();
         coinNames.clear();
 
-        ConfigurationSection coinsSection = config.getConfigurationSection("coins.units");
-        if (coinsSection == null) return;
-
-        for (String unitKey : coinsSection.getKeys(false)) {
-            Component coinName = MiniMessage.miniMessage().deserialize(
-                    coinsSection.getString(unitKey, unitKey)
-            );
-            coinNames.put(unitKey, coinName);
-        }
+        plugin.getConfigManager().getMainConfig().coins.units.forEach((binanceCoin, name) -> {
+            coinNames.put(binanceCoin, MiniMessage.miniMessage().deserialize(name));
+        });
     }
 
     public void startPriceUpdateTask() {
-        FileConfiguration config = plugin.getConfig();
-        long updateTime = config.getLong("coins.update-time", 600) * 20L;
+        long updateTime = plugin.getConfigManager().getMainConfig().coins.updateTime * 20;
 
         new BukkitRunnable() {
             @Override

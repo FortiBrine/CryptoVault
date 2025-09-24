@@ -7,6 +7,7 @@ ormlite = "6.1"
 litecommands = "3.10.2"
 vault-api = "1.7"
 placeholderapi = "2.11.6"
+configurate = "4.2.0"
 
 [libraries]
 paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
@@ -16,6 +17,7 @@ ormlite = { module = "com.j256.ormlite:ormlite-jdbc", version.ref = "ormlite" }
 litecommands = { module = "dev.rollczi:litecommands-bukkit", version.ref = "litecommands" }
 vault-api = { module = "com.github.MilkBowl:VaultAPI", version.ref = "vault-api" }
 placeholderapi = { module = "me.clip:placeholderapi", version.ref = "placeholderapi" }
+configurate = { module = "org.spongepowered:configurate-yaml", version.ref = "configurate" }
 
 [plugins]
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }

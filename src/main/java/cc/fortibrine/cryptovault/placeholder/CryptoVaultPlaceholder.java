@@ -23,13 +23,13 @@ public class CryptoVaultPlaceholder extends PlaceholderExpansion {
 
     private final LoadingCache<UUID, Double> balanceCache = CacheBuilder.newBuilder()
             .expireAfterWrite(1, TimeUnit.MINUTES)
-            .build(new CacheLoader<UUID, Double>() {
+            .build(new CacheLoader<>() {
                 @Override
                 public Double load(@NotNull UUID uuid) {
                     double balance = 0;
 
                     for (String coin : coinManager.getCoinNames()) {
-                        double balancePerCoin = cryptoDatabase.getBalance(player.getUniqueId(), coin);
+                        double balancePerCoin = cryptoDatabase.getBalance(uuid, coin);
                         balance += balancePerCoin;
                     }
 
@@ -64,7 +64,7 @@ public class CryptoVaultPlaceholder extends PlaceholderExpansion {
         }
 
         if (params.equalsIgnoreCase("balance")) {
-            return BalanceFormatter.format(balanceCache.get(player.getUniqueId()));
+            return BalanceFormatter.format(balanceCache.getUnchecked(player.getUniqueId()));
         }
 
         return null;

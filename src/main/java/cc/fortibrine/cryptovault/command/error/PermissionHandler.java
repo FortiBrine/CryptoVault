@@ -1,7 +1,7 @@
 package cc.fortibrine.cryptovault.command.error;
 
 import cc.fortibrine.cryptovault.CryptoVaultPlugin;
-import cc.fortibrine.cryptovault.config.MessageManager;
+import cc.fortibrine.cryptovault.util.MiniMessageDeserializer;
 import dev.rollczi.litecommands.handler.result.ResultHandlerChain;
 import dev.rollczi.litecommands.invocation.Invocation;
 import dev.rollczi.litecommands.permission.MissingPermissions;
@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 
 public class PermissionHandler implements MissingPermissionsHandler<CommandSender> {
 
-    private final MessageManager messageManager = CryptoVaultPlugin.getInstance().getMessageManager();
+    private final CryptoVaultPlugin plugin = CryptoVaultPlugin.getInstance();
 
     @Override
     public void handle(
@@ -21,8 +21,12 @@ public class PermissionHandler implements MissingPermissionsHandler<CommandSende
     ) {
         String permissions = missingPermissions.asJoinedText();
 
-        messageManager.sendMessages("error.insufficient_permissions", invocation.sender(),
-                Placeholder.unparsed("permissions", permissions));
+        invocation.sender().sendMessage(MiniMessageDeserializer.deserializePlayer(
+                plugin.getConfigManager().getMessageConfig().error.insufficientPermissions,
+                invocation.sender(),
+                Placeholder.unparsed("permissions", permissions)
+        ));
+
     }
 
 }

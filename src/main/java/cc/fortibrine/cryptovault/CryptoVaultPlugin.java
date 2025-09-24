@@ -4,6 +4,7 @@ import cc.fortibrine.cryptovault.command.BalanceCommand;
 import cc.fortibrine.cryptovault.command.PricesCommand;
 import cc.fortibrine.cryptovault.command.error.InvalidUsageHandlerImpl;
 import cc.fortibrine.cryptovault.command.error.PermissionHandler;
+import cc.fortibrine.cryptovault.config.ConfigManager;
 import cc.fortibrine.cryptovault.placeholder.CryptoVaultPlaceholder;
 import com.j256.ormlite.logger.Level;
 import com.j256.ormlite.logger.Logger;
@@ -15,13 +16,13 @@ import cc.fortibrine.cryptovault.coin.CoinManager;
 import cc.fortibrine.cryptovault.command.BuyCommand;
 import cc.fortibrine.cryptovault.command.SellCommand;
 import cc.fortibrine.cryptovault.command.argument.CoinArgument;
-import cc.fortibrine.cryptovault.config.MessageManager;
 import cc.fortibrine.cryptovault.database.CryptoDatabase;
 import cc.fortibrine.cryptovault.database.SqliteCryptoDatabase;
 import cc.fortibrine.cryptovault.economy.EconomyManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 @Getter
@@ -30,11 +31,12 @@ public class CryptoVaultPlugin extends JavaPlugin {
     @Getter
     private static CryptoVaultPlugin instance;
 
+    private ConfigManager configManager;
+
     private LiteCommands<CommandSender> liteCommands;
     private CryptoDatabase cryptoDatabase;
     private CoinManager coinManager;
     private EconomyManager economyManager;
-    private MessageManager messageManager;
 
     @Override
     public void onLoad() {
@@ -42,17 +44,22 @@ public class CryptoVaultPlugin extends JavaPlugin {
 
         Logger.setGlobalLogLevel(Level.OFF);
 
-        saveDefaultConfig();
-        messageManager = new MessageManager();
+        try {
+            configManager = new ConfigManager(getDataFolder());
+            configManager.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         try {
-            cryptoDatabase = new SqliteCryptoDatabase(getConfig().getString("database.path"));
+            cryptoDatabase = new SqliteCryptoDatabase(configManager.getMainConfig().database.path);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
         coinManager = new CoinManager();
         economyManager = new EconomyManager();
+
     }
 
     @Override
@@ -85,7 +92,7 @@ public class CryptoVaultPlugin extends JavaPlugin {
 
         cryptoDatabase = null;
         coinManager = null;
-        messageManager = null;
+        configManager = null;
         economyManager = null;
 
         if (liteCommands != null) {

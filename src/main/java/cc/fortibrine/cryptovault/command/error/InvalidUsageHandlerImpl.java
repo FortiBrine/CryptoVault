@@ -1,7 +1,7 @@
 package cc.fortibrine.cryptovault.command.error;
 
 import cc.fortibrine.cryptovault.CryptoVaultPlugin;
-import cc.fortibrine.cryptovault.config.MessageManager;
+import cc.fortibrine.cryptovault.util.MiniMessageDeserializer;
 import dev.rollczi.litecommands.handler.result.ResultHandlerChain;
 import dev.rollczi.litecommands.invalidusage.InvalidUsage;
 import dev.rollczi.litecommands.invalidusage.InvalidUsageHandler;
@@ -10,10 +10,13 @@ import org.bukkit.command.CommandSender;
 
 public class InvalidUsageHandlerImpl implements InvalidUsageHandler<CommandSender> {
 
-    private final MessageManager messageManager = CryptoVaultPlugin.getInstance().getMessageManager();
+    private final CryptoVaultPlugin plugin = CryptoVaultPlugin.getInstance();
 
     @Override
     public void handle(Invocation<CommandSender> invocation, InvalidUsage<CommandSender> result, ResultHandlerChain<CommandSender> chain) {
-        messageManager.sendMessages("usage.all", invocation.sender());
+        invocation.sender().sendMessage(MiniMessageDeserializer.deserializePlayer(
+                plugin.getConfigManager().getMessageConfig().usage.all,
+                invocation.sender()
+        ));
     }
 }

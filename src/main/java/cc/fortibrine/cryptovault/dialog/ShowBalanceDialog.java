@@ -15,8 +15,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-public class ShowPricesDialog implements PluginDialog {
+public class ShowBalanceDialog implements PluginDialog {
 
     private final CryptoVaultPlugin plugin = CryptoVaultPlugin.getInstance();
     private final ConfigManager configManager = plugin.getConfigManager();
@@ -24,7 +25,7 @@ public class ShowPricesDialog implements PluginDialog {
     private final Player player;
     private final Dialog dialog;
 
-    public ShowPricesDialog(Player player) {
+    public ShowBalanceDialog(Player player) {
         this.player = player;
 
         double balance = plugin.getEconomyManager().getBalance(player);
@@ -36,23 +37,30 @@ public class ShowPricesDialog implements PluginDialog {
                         .showTooltip(false)
                         .build(),
                 DialogBody.plainMessage(MiniMessageDeserializer.deserializePlayer(
-                        configManager.getMessageConfig().dialog.prices.header.component,
+                        configManager.getMessageConfig().dialog.balance.header.component,
                         player,
                         Placeholder.unparsed("balance", BalanceFormatter.format(balance))
-                ), configManager.getMessageConfig().dialog.prices.header.width)
+                ), configManager.getMessageConfig().dialog.balance.header.width)
         ));
 
-        plugin.getCoinManager().getCoinCosts().forEach((name, price) -> {
+        Set<String> coinNames = plugin.getCoinManager().getCoinNames();
+        coinNames.forEach(coinName -> {
+            double coinAmount = plugin.getCryptoDatabase().getBalance(player.getUniqueId(), coinName);
+            double coinPrice = plugin.getCoinManager().getCoinPrice(coinName);
+
+            double balanceCoin = coinAmount * coinPrice;
             dialogBodies.add(DialogBody.plainMessage(MiniMessageDeserializer.deserializePlayer(
-                    configManager.getMessageConfig().dialog.prices.content.component,
+                    configManager.getMessageConfig().dialog.balance.content.component,
                     player,
-                    Placeholder.unparsed("price", BalanceFormatter.format(price)),
-                    Placeholder.unparsed("unit", name)
-            ), configManager.getMessageConfig().dialog.prices.content.width));
+                    Placeholder.unparsed("balance_unit", coinName),
+                    Placeholder.unparsed("count_unit", BalanceFormatter.format(coinPrice)),
+                    Placeholder.unparsed("balance_unit", BalanceFormatter.format(balanceCoin))
+            ), configManager.getMessageConfig().dialog.balance.content.width));
+
         });
 
         dialog = Dialog.create(builder -> builder.empty()
-                .base(DialogBase.builder(MiniMessageDeserializer.deserializePlayer(configManager.getMessageConfig().dialog.prices.title, player))
+                .base(DialogBase.builder(MiniMessageDeserializer.deserializePlayer(configManager.getMessageConfig().dialog.balance.title, player))
                         .body(dialogBodies)
                         .build()
                 )

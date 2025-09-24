@@ -1,5 +1,7 @@
 package cc.fortibrine.cryptovault.command;
 
+import cc.fortibrine.cryptovault.config.ConfigManager;
+import cc.fortibrine.cryptovault.util.MiniMessageDeserializer;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.async.Async;
 import dev.rollczi.litecommands.annotations.command.Command;
@@ -21,20 +23,27 @@ public class SellCommand {
     private final EconomyManager economyManager = plugin.getEconomyManager();
     private final CryptoDatabase cryptoDatabase = plugin.getCryptoDatabase();
     private final CoinManager coinManager = plugin.getCoinManager();
+    private final ConfigManager configManager = plugin.getConfigManager();
 
     @Execute(name = "sell")
     @Permission("cryptovault.sell")
     public void execute(@Context Player player, @Async @Arg(CoinArgument.KEY) String coin, @Arg double amount) {
 
         if (amount <= 0) {
-            plugin.getMessageManager().sendMessages("usage.sell", player);
+            player.sendMessage(MiniMessageDeserializer.deserializePlayer(
+                    configManager.getMessageConfig().usage.all,
+                    player
+            ));
             return;
         }
 
         double cost = coinManager.getCoinPrice(coin) * amount;
 
         if (!cryptoDatabase.withdraw(player.getUniqueId(), coin, amount)) {
-            plugin.getMessageManager().sendMessages("error.insufficient_crypto", player);
+            player.sendMessage(MiniMessageDeserializer.deserializePlayer(
+                    configManager.getMessageConfig().error.insufficientCrypto,
+                    player
+            ));
             return;
         }
 
@@ -42,7 +51,10 @@ public class SellCommand {
             @Override
             public void run() {
                 economyManager.deposit(player, cost);
-                plugin.getMessageManager().sendMessages("success.sell", player);
+                player.sendMessage(MiniMessageDeserializer.deserializePlayer(
+                        configManager.getMessageConfig().success.sell,
+                        player
+                ));
             }
         }.runTaskAsynchronously(plugin);
 

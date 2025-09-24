@@ -26,6 +26,7 @@ dependencies {
         exclude("org.bukkit", "bukkit")
     }
     compileOnly(libs.placeholderapi)
+    compileOnly(libs.configurate)
     annotationProcessor(libs.lombok)
 
     compileOnly(libs.ormlite)

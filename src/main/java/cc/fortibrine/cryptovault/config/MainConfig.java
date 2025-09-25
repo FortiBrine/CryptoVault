@@ -21,11 +21,11 @@ public class MainConfig {
     @ConfigSerializable
     public static class CoinsSection {
 
-        public Map<String, String> units = new HashMap<>() {{
-            put("BTCUSDT", "btc.");
-            put("ETHUSDT", "eth.");
-            put("USDCUSDT", "usdt.");
-        }};
+        public Map<String, String> units = Map.of(
+                "BTCUSDT", "btc.",
+                "ETHUSDT", "eth.",
+                "USDCUSDT", "usdt."
+        );
 
         public long updateTime = 600;
 

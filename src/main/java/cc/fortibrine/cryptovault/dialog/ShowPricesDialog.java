@@ -42,12 +42,14 @@ public class ShowPricesDialog implements PluginDialog {
                 ), configManager.getMessageConfig().dialog.prices.header.width)
         ));
 
-        plugin.getCoinManager().getCoinCosts().forEach((name, price) -> {
+        plugin.getCoinManager().getCoinNames().forEach((coin, coinName) -> {
+            double price = plugin.getCoinManager().getCoinPrice(coin);
+
             dialogBodies.add(DialogBody.plainMessage(MiniMessageDeserializer.deserializePlayer(
                     configManager.getMessageConfig().dialog.prices.content.component,
                     player,
                     Placeholder.unparsed("price", BalanceFormatter.format(price)),
-                    Placeholder.unparsed("unit", name)
+                    Placeholder.unparsed("unit", coinName)
             ), configManager.getMessageConfig().dialog.prices.content.width));
         });
 

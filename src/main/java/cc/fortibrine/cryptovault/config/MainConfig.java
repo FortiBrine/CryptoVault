@@ -21,10 +21,16 @@ public class MainConfig {
     @ConfigSerializable
     public static class CoinsSection {
 
-        public Map<String, String> units = Map.of(
-                "BTCUSDT", "btc.",
-                "ETHUSDT", "eth.",
-                "USDCUSDT", "usdt."
+        public Map<String, String> apiUnits = Map.of(
+                "bitcoin", "BTCUSDT",
+                "ethereum", "ETHUSDT",
+                "tether", "USDCUSDT"
+        );
+
+        public Map<String, String> names = Map.of(
+                "bitcoin", "btc.",
+                "ethereum", "eth.",
+                "tether", "usdt."
         );
 
         public long updateTime = 600;

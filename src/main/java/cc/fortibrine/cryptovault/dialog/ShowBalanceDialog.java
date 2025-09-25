@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ShowBalanceDialog implements PluginDialog {
@@ -43,10 +44,10 @@ public class ShowBalanceDialog implements PluginDialog {
                 ), configManager.getMessageConfig().dialog.balance.header.width)
         ));
 
-        Set<String> coinNames = plugin.getCoinManager().getCoinNames();
-        coinNames.forEach(coinName -> {
-            double coinAmount = plugin.getCryptoDatabase().getBalance(player.getUniqueId(), coinName);
-            double coinPrice = plugin.getCoinManager().getCoinPrice(coinName);
+        Map<String, String> coinNames = plugin.getCoinManager().getCoinNames();
+        coinNames.forEach((coin, coinName) -> {
+            double coinAmount = plugin.getCryptoDatabase().getBalance(player.getUniqueId(), coin);
+            double coinPrice = plugin.getCoinManager().getCoinPrice(coin);
 
             double balanceCoin = coinAmount * coinPrice;
             dialogBodies.add(DialogBody.plainMessage(MiniMessageDeserializer.deserializePlayer(

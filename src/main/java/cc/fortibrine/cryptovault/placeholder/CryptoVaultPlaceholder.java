@@ -28,9 +28,9 @@ public class CryptoVaultPlaceholder extends PlaceholderExpansion {
                 public Double load(@NotNull UUID uuid) {
                     double balance = 0;
 
-                    for (String coin : coinManager.getCoinNames()) {
+                    for (String coin : coinManager.getCoins()) {
                         double balancePerCoin = cryptoDatabase.getBalance(uuid, coin);
-                        balance += balancePerCoin;
+                        balance += balancePerCoin * coinManager.getCoinPrice(coin);
                     }
 
                     return balance;

@@ -1,10 +1,7 @@
 package cc.fortibrine.cryptovault;
 
 import cc.fortibrine.cryptovault.coin.CoinManager;
-import cc.fortibrine.cryptovault.command.BalanceCommand;
-import cc.fortibrine.cryptovault.command.BuyCommand;
-import cc.fortibrine.cryptovault.command.PricesCommand;
-import cc.fortibrine.cryptovault.command.SellCommand;
+import cc.fortibrine.cryptovault.command.*;
 import cc.fortibrine.cryptovault.command.argument.CoinArgument;
 import cc.fortibrine.cryptovault.command.error.InvalidUsageHandlerImpl;
 import cc.fortibrine.cryptovault.command.error.PermissionHandler;
@@ -72,7 +69,8 @@ public class CryptoVaultPlugin extends JavaPlugin {
                         new BuyCommand(),
                         new SellCommand(),
                         new BalanceCommand(),
-                        new PricesCommand()
+                        new PricesCommand(),
+                        new ReloadCommand()
                 )
                 .invalidUsage(new InvalidUsageHandlerImpl())
                 .missingPermission(new PermissionHandler())

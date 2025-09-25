@@ -38,6 +38,11 @@ public class MessagesConfig {
                 "<green>Your balance:",
                 "<gray>Crypto: <crypto_balance> <coin> | Currency: <currency_balance>"
         );
+
+        public List<String> reload = List.of(
+                "<green>Success: Plugin configuration has been reloaded!",
+                "<gray>All changes are now applied."
+        );
     }
 
     public ErrorSection error = new ErrorSection();

@@ -14,6 +14,7 @@ import dev.rollczi.litecommands.annotations.async.Async;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
+import dev.rollczi.litecommands.annotations.execute.ExecuteDefault;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.entity.Player;
@@ -28,7 +29,7 @@ public class BalanceCommand {
     private final ConfigManager configManager = plugin.getConfigManager();
 
     @Async
-    @Execute
+    @Execute(name = "balance")
     @Permission("cryptovault.balance")
     public void execute(@Context Player player) {
         PluginDialog pluginDialog = new ShowBalanceDialog(player);

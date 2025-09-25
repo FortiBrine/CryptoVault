@@ -30,7 +30,9 @@ dependencies {
     annotationProcessor(libs.lombok)
 
     compileOnly(libs.ormlite)
-    implementation(libs.litecommands)
+    implementation(libs.litecommands) {
+        exclude("org.jetbrains", "annotations")
+    }
 }
 
 tasks {
@@ -51,12 +53,6 @@ tasks {
     processResources {
         inputs.property("version", project.version)
         filesMatching("plugin.yml") {
-            expand("version" to project.version)
-        }
-        filesMatching("config.yml") {
-            expand("version" to project.version)
-        }
-        filesMatching("messages.yml") {
             expand("version" to project.version)
         }
     }

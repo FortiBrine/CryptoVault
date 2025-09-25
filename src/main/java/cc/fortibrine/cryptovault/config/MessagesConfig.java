@@ -55,7 +55,7 @@ public class MessagesConfig {
 
         public List<String> invalidCoinType = List.of(
                 "<red>Error: Invalid coin type!",
-                "<gray>Available coins: BTCUSDT, ETHUSDT, etc."
+                "<gray>Available coins: bitcoin, ethereum, etc."
         );
 
         public List<String> insufficientPermissions = List.of(

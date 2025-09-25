@@ -1,5 +1,7 @@
 package cc.fortibrine.cryptovault.command.argument;
 
+import cc.fortibrine.cryptovault.CryptoVaultPlugin;
+import cc.fortibrine.cryptovault.coin.CoinManager;
 import cc.fortibrine.cryptovault.util.MiniMessageDeserializer;
 import dev.rollczi.litecommands.argument.Argument;
 import dev.rollczi.litecommands.argument.parser.ParseResult;
@@ -7,8 +9,6 @@ import dev.rollczi.litecommands.argument.resolver.ArgumentResolver;
 import dev.rollczi.litecommands.invocation.Invocation;
 import dev.rollczi.litecommands.suggestion.SuggestionContext;
 import dev.rollczi.litecommands.suggestion.SuggestionResult;
-import cc.fortibrine.cryptovault.CryptoVaultPlugin;
-import cc.fortibrine.cryptovault.coin.CoinManager;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.command.CommandSender;
 

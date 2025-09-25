@@ -1,17 +1,17 @@
 package cc.fortibrine.cryptovault.command;
 
+import cc.fortibrine.cryptovault.CryptoVaultPlugin;
+import cc.fortibrine.cryptovault.coin.CoinManager;
+import cc.fortibrine.cryptovault.command.argument.CoinArgument;
 import cc.fortibrine.cryptovault.config.ConfigManager;
+import cc.fortibrine.cryptovault.database.CryptoDatabase;
+import cc.fortibrine.cryptovault.economy.EconomyManager;
 import cc.fortibrine.cryptovault.util.MiniMessageDeserializer;
 import dev.rollczi.litecommands.annotations.argument.Arg;
 import dev.rollczi.litecommands.annotations.async.Async;
 import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
-import cc.fortibrine.cryptovault.CryptoVaultPlugin;
-import cc.fortibrine.cryptovault.coin.CoinManager;
-import cc.fortibrine.cryptovault.command.argument.CoinArgument;
-import cc.fortibrine.cryptovault.database.CryptoDatabase;
-import cc.fortibrine.cryptovault.economy.EconomyManager;
 import dev.rollczi.litecommands.annotations.permission.Permission;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

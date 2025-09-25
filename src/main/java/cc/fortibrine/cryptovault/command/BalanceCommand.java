@@ -5,6 +5,8 @@ import cc.fortibrine.cryptovault.coin.CoinManager;
 import cc.fortibrine.cryptovault.command.argument.CoinArgument;
 import cc.fortibrine.cryptovault.config.ConfigManager;
 import cc.fortibrine.cryptovault.database.CryptoDatabase;
+import cc.fortibrine.cryptovault.dialog.PluginDialog;
+import cc.fortibrine.cryptovault.dialog.ShowBalanceDialog;
 import cc.fortibrine.cryptovault.util.BalanceFormatter;
 import cc.fortibrine.cryptovault.util.MiniMessageDeserializer;
 import dev.rollczi.litecommands.annotations.argument.Arg;
@@ -13,9 +15,9 @@ import dev.rollczi.litecommands.annotations.command.Command;
 import dev.rollczi.litecommands.annotations.context.Context;
 import dev.rollczi.litecommands.annotations.execute.Execute;
 import dev.rollczi.litecommands.annotations.permission.Permission;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 @Command(name = "cryptovault", aliases = {"cv"})
 public class BalanceCommand {
@@ -29,7 +31,14 @@ public class BalanceCommand {
     @Execute
     @Permission("cryptovault.balance")
     public void execute(@Context Player player) {
+        PluginDialog pluginDialog = new ShowBalanceDialog(player);
 
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                pluginDialog.show();
+            }
+        }.runTask(plugin);
     }
 
     @Async

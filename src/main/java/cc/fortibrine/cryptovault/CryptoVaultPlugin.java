@@ -1,10 +1,17 @@
 package cc.fortibrine.cryptovault;
 
+import cc.fortibrine.cryptovault.coin.CoinManager;
 import cc.fortibrine.cryptovault.command.BalanceCommand;
+import cc.fortibrine.cryptovault.command.BuyCommand;
 import cc.fortibrine.cryptovault.command.PricesCommand;
+import cc.fortibrine.cryptovault.command.SellCommand;
+import cc.fortibrine.cryptovault.command.argument.CoinArgument;
 import cc.fortibrine.cryptovault.command.error.InvalidUsageHandlerImpl;
 import cc.fortibrine.cryptovault.command.error.PermissionHandler;
 import cc.fortibrine.cryptovault.config.ConfigManager;
+import cc.fortibrine.cryptovault.database.CryptoDatabase;
+import cc.fortibrine.cryptovault.database.SqliteCryptoDatabase;
+import cc.fortibrine.cryptovault.economy.EconomyManager;
 import cc.fortibrine.cryptovault.placeholder.CryptoVaultPlaceholder;
 import com.j256.ormlite.logger.Level;
 import com.j256.ormlite.logger.Logger;
@@ -12,13 +19,6 @@ import dev.rollczi.litecommands.LiteCommands;
 import dev.rollczi.litecommands.argument.ArgumentKey;
 import dev.rollczi.litecommands.bukkit.LiteBukkitFactory;
 import lombok.Getter;
-import cc.fortibrine.cryptovault.coin.CoinManager;
-import cc.fortibrine.cryptovault.command.BuyCommand;
-import cc.fortibrine.cryptovault.command.SellCommand;
-import cc.fortibrine.cryptovault.command.argument.CoinArgument;
-import cc.fortibrine.cryptovault.database.CryptoDatabase;
-import cc.fortibrine.cryptovault.database.SqliteCryptoDatabase;
-import cc.fortibrine.cryptovault.economy.EconomyManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 

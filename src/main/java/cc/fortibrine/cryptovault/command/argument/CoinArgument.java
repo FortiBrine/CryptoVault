@@ -21,7 +21,7 @@ public class CoinArgument extends ArgumentResolver<CommandSender, String> {
 
     @Override
     protected ParseResult<String> parse(Invocation<CommandSender> invocation, Argument<String> context, String argument) {
-        if (!coinManager.getCoinNames().contains(argument)) {
+        if (!coinManager.getCoinNames().containsKey(argument)) {
             return ParseResult.failure(MiniMessageDeserializer.deserializePlayer(
                     plugin.getConfigManager().getMessageConfig().error.invalidCoinType,
                     invocation.sender(),
@@ -34,6 +34,6 @@ public class CoinArgument extends ArgumentResolver<CommandSender, String> {
 
     @Override
     public SuggestionResult suggest(Invocation<CommandSender> invocation, Argument<String> argument, SuggestionContext context) {
-        return SuggestionResult.of(coinManager.getCoinNames());
+        return SuggestionResult.of(coinManager.getCoinNames().keySet());
     }
 }

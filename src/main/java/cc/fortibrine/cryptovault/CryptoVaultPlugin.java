@@ -64,7 +64,6 @@ public class CryptoVaultPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        coinManager.reloadNames();
         coinManager.startPriceUpdateTask();
         economyManager.setupEconomy();
 

@@ -1,15 +1,17 @@
 package cc.fortibrine.cryptovault.coin;
 
+import cc.fortibrine.cryptovault.CryptoVaultPlugin;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import cc.fortibrine.cryptovault.CryptoVaultPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 public class CoinManager {

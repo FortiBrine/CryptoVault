@@ -2,7 +2,6 @@ package cc.fortibrine.cryptovault.config;
 
 import org.spongepowered.configurate.objectmapping.ConfigSerializable;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @ConfigSerializable
@@ -24,13 +23,23 @@ public class MainConfig {
         public Map<String, String> apiUnits = Map.of(
                 "bitcoin", "BTCUSDT",
                 "ethereum", "ETHUSDT",
-                "tether", "USDCUSDT"
+                "tether", "USDCUSDT",
+                "litecoin", "LTCUSDT",
+                "cardano", "ADAUSDT",
+                "solana", "SOLUSDT",
+                "dogecoin", "DOGEUSDT",
+                "polygon", "MATICUSDT"
         );
 
         public Map<String, String> names = Map.of(
                 "bitcoin", "btc.",
                 "ethereum", "eth.",
-                "tether", "usdt."
+                "tether", "usdt.",
+                "litecoin", "ltc.",
+                "cardano", "ada.",
+                "solana", "sol.",
+                "dogecoin", "doge.",
+                "polygon", "matic."
         );
 
         public long updateTime = 600;

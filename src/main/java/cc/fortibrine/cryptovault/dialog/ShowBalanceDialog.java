@@ -28,7 +28,12 @@ public class ShowBalanceDialog implements PluginDialog {
     public ShowBalanceDialog(Player player) {
         this.player = player;
 
-        double balance = plugin.getEconomyManager().getBalance(player);
+        double balance = 0;
+
+        for (String coin : plugin.getCoinManager().getCoins()) {
+            double balancePerCoin = plugin.getCryptoDatabase().getBalance(player.getUniqueId(), coin);
+            balance += balancePerCoin * plugin.getCoinManager().getCoinPrice(coin);
+        }
 
         List<DialogBody> dialogBodies = new ArrayList<>();
 
@@ -52,9 +57,9 @@ public class ShowBalanceDialog implements PluginDialog {
             dialogBodies.add(DialogBody.plainMessage(MiniMessageDeserializer.deserializePlayer(
                     configManager.getMessageConfig().dialog.balance.content.component,
                     player,
-                    Placeholder.unparsed("balance_unit", coinName),
-                    Placeholder.unparsed("count_unit", BalanceFormatter.format(coinPrice)),
-                    Placeholder.unparsed("balance_unit", BalanceFormatter.format(balanceCoin))
+                    Placeholder.unparsed("balance_unit", BalanceFormatter.format(balanceCoin)),
+                    Placeholder.unparsed("count_unit", BalanceFormatter.format(coinAmount)),
+                    Placeholder.unparsed("unit", coinName)
             ), configManager.getMessageConfig().dialog.balance.content.width));
 
         });

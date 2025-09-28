@@ -1,5 +1,5 @@
 name: CryptoVault
-main: cc.fortibrine.cryptovault.CryptoVaultPlugin
+main: me.fortibrine.cryptovault.CryptoVaultPlugin
 version: ${version}
 
 api-version: '1.21.7'

@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.shadow)
 }
 
-group = "cc.fortibrine"
+group = "me.fortibrine"
 version = "1.0"
 
 repositories {
